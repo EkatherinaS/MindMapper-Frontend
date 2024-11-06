@@ -2,14 +2,14 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Flex } from 'antd';
 import { useModal } from '../../hooks';
 import { JSX } from 'react';
-import { UploadFile } from '../../ui/ UploadFile';
+import { UploadFile, SubjectGraph } from '../../ui';
 
 export const SubjectMap = (): JSX.Element => {
   const { onOpen, onClose, isOpen } = useModal();
 
   return (
   <Flex vertical>
-    <h1>Subject Map Page</h1>
+    <SubjectGraph />
 
     <UploadFile
       onClose={onClose}
@@ -25,5 +25,5 @@ export const SubjectMap = (): JSX.Element => {
         onClick={onOpen}
       />
     </div>
-  </Flex>);
+  </Flex>)
 };
