@@ -1,5 +1,10 @@
 import { JSX } from 'react';
+import { SubjectGraph } from '../../ui';
 
 export const SubjectMap = (): JSX.Element => {
-  return <div>SubjectMap</div>;
+  return (
+    <div>
+      <SubjectGraph />
+    </div>
+  );
 };
