@@ -5,11 +5,12 @@ export const mapDataToGraph = (data: SubjectUnion): GraphData => {
     id: topic.id,
     label: topic.name,
     text: topic.text,
-    parent: topic.previousTopicId,
+    parent: topic.previousTopicId ?? undefined,
   }));
   
   const links = data.topics.reduce((acc: Edge[], topic: Topic) => {
-    if(topic.previousTopicId) {
+    if(topic.previousTopicId && topic.previousTopicId !== null) {
+      debugger
       const newEdge = {
         source: topic.previousTopicId,
         target: topic.id,
