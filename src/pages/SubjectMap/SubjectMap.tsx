@@ -17,7 +17,7 @@ export const SubjectMap = (): JSX.Element => {
   const {  data: documentsData } = useGetSubjectList();
 
 
-  console.log({graphData, errorGraph})
+  console.log({documentsData, graphData, errorGraph})
 //documentsData
   const nodes = graphData?.nodes || [];
   const links = graphData?.links || [];
