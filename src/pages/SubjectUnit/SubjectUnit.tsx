@@ -1,5 +1,6 @@
 import { JSX } from 'react';
 import { Collapse, Card, Carousel } from 'antd';
+import { useGetSubject } from '../../hooks';
 
 const { Panel } = Collapse;
 
@@ -27,6 +28,10 @@ const carouselStyle: React.CSSProperties = {
 };
 
 export const SubjectUnit = (): JSX.Element => {
+  const { data } = useGetSubject({id: 1});
+
+  console.log(data);
+
   return (
     <div>
       <h1>Subject Union Page</h1>
