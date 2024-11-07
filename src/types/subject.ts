@@ -13,3 +13,8 @@ export interface SubjectUnion {
   isReady: boolean;
   topics: Topic[];
 }
+
+export interface SubjectDocument {
+  id: Id;
+  name: string;
+}
