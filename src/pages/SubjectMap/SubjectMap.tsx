@@ -28,7 +28,7 @@ export const SubjectMap = (): JSX.Element => {
   const nodes = graphData?.nodes || [];
   const links = graphData?.links || [];
   const documentId = graphData?.documentId || '';
-  const documentName = graphData?.documentName || 'test';
+  const documentName = graphData?.name ?? '';
   const isReady = graphData?.isReady || false;
 
   const showDrawer = () => {
