@@ -1,3 +1,4 @@
+import { SubjectUnion } from '../types';
 import { Id } from '../types/index.ts';
 import { API_URL } from './constants.ts';
 import { http } from './http.ts';
@@ -6,18 +7,11 @@ export interface CreateSubjectUnion {
   name?: string;
 }
 
-export interface SubjectUnion {
-  id: Id;
-  name: string;
-  text: string;
-  previousTopicId?: Id
-}
-
 export const subjectApi = {
   getOne: ({ id }: { id: Id }): Promise<SubjectUnion> => {
     console.log({id});
 
-    return http.get<SubjectUnion>(`${API_URL.SUBJECT}/` )
+    return http.get<SubjectUnion>(`${API_URL.SUBJECT}` )
       .then((res) => {
         return res.data;
       })

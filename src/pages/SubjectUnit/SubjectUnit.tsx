@@ -30,7 +30,7 @@ const carouselStyle: React.CSSProperties = {
 export const SubjectUnit = (): JSX.Element => {
   const { data } = useGetSubject({id: 1});
 
-  console.log(data);
+  console.log({data});
 
   return (
     <div>
