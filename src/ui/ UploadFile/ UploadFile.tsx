@@ -37,6 +37,7 @@ export const UploadFile = ({
         destroyOnClose
         open={isOpen}
         onClose={onClose}
+        onCancel={onClose}
         title={"Загрузить презентацию"}
         width={400}
         height={1000}

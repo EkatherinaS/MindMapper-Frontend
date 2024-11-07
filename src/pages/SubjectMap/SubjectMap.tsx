@@ -16,9 +16,6 @@ export const SubjectMap = (): JSX.Element => {
     error: errorGraph, isError: isErrorGraph} = useGetSubject({ id: selectedDocument, select: mapDataToGraph });
   const {  data: documentsData } = useGetSubjectList();
 
-
-  console.log({graphData, errorGraph})
-//documentsData
   const nodes = graphData?.nodes || [];
   const links = graphData?.links || [];
   const documentId = graphData?.documentId || '';
