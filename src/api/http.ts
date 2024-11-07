@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 const http = axios.create({
-  baseURL: 'hakaton/api',
+  baseURL: 'https://api',
   headers: {
     'Content-Type': 'application/json',
   }
