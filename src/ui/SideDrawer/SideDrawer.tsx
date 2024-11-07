@@ -1,14 +1,17 @@
+import { Id, SubjectDocument } from '../../types';
 import { Button, Drawer } from 'antd';
 
 interface SideDrawerProps {
   visible: boolean;
   onClose: () => void;
+  onItemClick: (id: Id) => void;
+  presentations: SubjectDocument[];    
 }
 
-export const SideDrawer: React.FC<SideDrawerProps> = ({ visible, onClose }) => {
-    function handleButtonClick(buttonName: string): void {
-        console.log(`${buttonName} нажата`);
-    }
+export const SideDrawer: React.FC<SideDrawerProps> = ({ visible, onClose, presentations, onItemClick }) => {
+    const handleButtonClick = (presentationId: Id) => { 
+    onItemClick(presentationId);
+  };
 
   return (
     <Drawer
@@ -18,13 +21,17 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({ visible, onClose }) => {
       onClose={onClose}
       visible={visible}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <Button onClick={() => handleButtonClick('Кнопка 1')}>Кнопка 1</Button>
-        <Button onClick={() => handleButtonClick('Кнопка 2')}>Кнопка 2</Button>
-        <Button onClick={() => handleButtonClick('Кнопка 3')}>Кнопка 3</Button>
-        <Button onClick={() => handleButtonClick('Кнопка 4')}>Кнопка 4</Button>
-        <Button onClick={() => handleButtonClick('Кнопка 5')}>Кнопка 5</Button>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {presentations.map((presentation) => (
+          <Button key={presentation.id} onClick={() => handleButtonClick(presentation.id)}>
+            {presentation.name}
+          </Button>
+        ))}
       </div>
     </Drawer>
   );
 };
+
+function setSelectedDocument(presentationId: Id) {
+    throw new Error('Function not implemented.');
+}
