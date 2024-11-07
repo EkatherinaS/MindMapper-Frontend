@@ -9,9 +9,9 @@ interface UseGetSubjectProps<T> extends Partial<UseQueryOptions<SubjectUnion, Er
 export const useGetSubject = <T>({id, ...options}: UseGetSubjectProps<T>): UseQueryResult<T> => {
 
   return useQuery({
-    queryKey: [QUERY_NAME.SUBJECT],
+    queryKey: [QUERY_NAME.SUBJECT, id],
     queryFn: () => subjectApi.getOne({id}),
-    refetchInterval: 60 * 1000,
+    refetchInterval: 60 * 100,
     ...options,
   });
 };

@@ -24,7 +24,7 @@ export const UploadFile = ({
         console.log(info.file, info.fileList);
       }
       if (status === 'done') {
-        onUploadSuccess(info.file.response.id);
+        onUploadSuccess(info.file.response.documentId);
         message.success(`${info.file.name} презентация успешно загружена.`);
       } else if (status === 'error') {
         message.error(`${info.file.name} презентация не загружена.`);

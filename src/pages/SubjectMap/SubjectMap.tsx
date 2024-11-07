@@ -1,29 +1,31 @@
 import { ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Drawer, Flex, message } from 'antd';
+import { Button, Flex, message } from 'antd';
 import { useGetSubject, useGetSubjectList, useModal } from '../../hooks';
 import { JSX, useState } from 'react';
 import { UploadFile, SubjectGraph, SideDrawer } from '../../ui';
-import { Id } from '../../types';
+import { Id, SubjectDocument } from '../../types';
 import { mapDataToGraph } from '../../helpers';
 import { useNavigate } from 'react-router-dom';
 
-export const SubjectMap = (): JSX.Element => {
+export const SubjectMap = (): JSX.Element | null => {
   const navigate = useNavigate();
-  const [selectedDocument, setSelectedDocument] = useState<Id>(1);
+  const { onOpen, onClose, isOpen } = useModal();
+
+  const {
+    data: documentsData,
+    refetch: refetchDocumentsData
+  } = useGetSubjectList();
+
+  const presentationList: SubjectDocument[] = documentsData ?? [];
+
+  const [selectedDocument, setSelectedDocument] = useState<Id>(presentationList[0]?.id ?? 10);
   const [drawerVisible, setDrawerVisible] = useState(false);
 
-  const { onOpen, onClose, isOpen } = useModal();
   const {
     data: graphData,
     isPending: isPendingGraph,
     isError: isErrorGraph
   } = useGetSubject({ id: selectedDocument, select: mapDataToGraph });
-  const {
-    data: documentsData,
-    // isPending: isPendingPresentations
-  } = useGetSubjectList();
-
-  const presentationList = documentsData ?? []  
 
   const nodes = graphData?.nodes || [];
   const links = graphData?.links || [];
@@ -41,6 +43,12 @@ export const SubjectMap = (): JSX.Element => {
 
   const goToSubjectUnion= (id: Id) => {
     navigate(`/subject-union/${id}`);
+  }
+
+  const onUploadNewFile = (id: Id) => {
+    setSelectedDocument(id);
+    onClose();
+    refetchDocumentsData();
   }
 
   if (isErrorGraph) {
@@ -67,7 +75,7 @@ export const SubjectMap = (): JSX.Element => {
 
     <UploadFile
       onClose={onClose}
-      onUploadSuccess={setSelectedDocument}
+      onUploadSuccess={onUploadNewFile}
       isOpen={isOpen}
     />
 

@@ -9,8 +9,8 @@ interface SideDrawerProps {
 }
 
 export const SideDrawer: React.FC<SideDrawerProps> = ({ visible, onClose, presentations, onItemClick }) => {
-    const handleButtonClick = (presentationId: Id) => { 
-    onItemClick(presentationId);
+  const handleButtonClick = (event: any) => { 
+    onItemClick(Number(event.currentTarget.id));
   };
 
   return (
@@ -23,7 +23,11 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({ visible, onClose, presen
     >
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {presentations.map((presentation) => (
-          <Button key={presentation.id} onClick={() => handleButtonClick(presentation.id)}>
+          <Button
+            key={presentation.id}
+            id={presentation.id as string}
+            onClick={handleButtonClick}
+          >
             {presentation.name}
           </Button>
         ))}
@@ -31,7 +35,3 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({ visible, onClose, presen
     </Drawer>
   );
 };
-
-function setSelectedDocument(presentationId: Id) {
-    throw new Error('Function not implemented.');
-}

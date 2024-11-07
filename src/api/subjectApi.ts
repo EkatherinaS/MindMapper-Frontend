@@ -11,8 +11,7 @@ export const subjectApi = {
   getList: (): Promise<SubjectDocument[]> => {
     return http.get<SubjectDocument[]>(`${API_URL.SUBJECT_DOCUMENT_LIST}` )
       .then((res) => {
-        /** TODO заменить на реальные данные */
-        return [{id: 1, name: 'presentation 1'}, {id: 2, name: 'presentation 2'}, {id: 3, name: 'presentation 3'}];
+        return res.data;
       })
   },
 
