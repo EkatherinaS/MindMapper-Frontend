@@ -9,7 +9,7 @@ import { SubjectUnion } from '@/types';
 const { Panel } = Collapse;
 
 export const SubjectUnit = (): JSX.Element => {
-  const { id } = useParams();
+  const { id = ''} = useParams();
   const { data, isPending } = useGetSubject<SubjectUnion>({ id });
   const topics = data?.topics || [];
 
