@@ -1,60 +1,14 @@
+import { Edge, Vertex, GraphData } from '@/types';
 import { ForceGraph2D } from 'react-force-graph';
 
-interface Node {
-  fy: number | undefined;
-  fx: number | undefined;
-  id: string;
-  url?: string;
-  label: string;
-  x?: number;
-  y?: number;
-}
 
-interface Link {
-  source: string;
-  target: string;
-}
-
-interface GraphData {
-  nodes: Node[];
-  links: Link[];
-}
-
-export const SubjectGraph = () => {
+export const SubjectGraph: React.FC<GraphData> = ({ nodes, links, documentId, documentName, isReady}) => {
   const data: GraphData = {
-    nodes: [
-      {
-        id: 'Node 1', url: 'http://localhost:3000/subject-union/1', label: 'Это узел 1', x: 40, y: 100,
-        fy: undefined,
-        fx: undefined
-      },
-      {
-        id: 'Node 2', url: 'http://localhost:3000/subject-union/2', label: 'Это узел 2', x: 100, y: 100,
-        fy: undefined,
-        fx: undefined
-      },
-      {
-        id: 'Node 3', label: 'Main', x: 0, y: 0,
-        fy: undefined,
-        fx: undefined
-      },
-      {
-        id: 'Node 4', url: 'http://localhost:3000/subject-union/3', label: '3', x: -40, y: 100,
-        fy: undefined,
-        fx: undefined
-      },
-      {
-        id: 'Node 5', url: 'http://localhost:3000/subject-union/4', label: '4 тема', x: -100, y: 100,
-        fy: undefined,
-        fx: undefined
-      },
-    ],
-    links: [
-      { source: 'Node 3', target: 'Node 1' },
-      { source: 'Node 2', target: 'Node 3' },
-      { source: 'Node 3', target: 'Node 4' },
-      { source: 'Node 3', target: 'Node 5' },
-    ],
+    nodes: nodes,
+    links: links,
+    documentId: documentId,
+    documentName: documentName,
+    isReady: isReady
   };
 
   return (
@@ -88,13 +42,13 @@ export const SubjectGraph = () => {
         ctx.fillStyle = 'black';
         ctx.fillText(node.label || node.id, node.x, node.y);
       }}
-      onEngineTick={() => {
-        // Отключаем физику, чтобы узлы не перемещались
-        data.nodes.forEach(node => {
-          node.fx = node.x; // Фиксируем позицию по X
-          node.fy = node.y; // Фиксируем позицию по Y
-        });
-      }}
+      // onEngineTick={() => {
+      //   // Отключаем физику, чтобы узлы не перемещались
+      //   data.nodes.forEach(node => {
+      //     node.fx = node.x; // Фиксируем позицию по X
+      //     node.fy = node.y; // Фиксируем позицию по Y
+      //   });
+      // }}
     />
   );
 };
