@@ -1,8 +1,12 @@
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { subjectApi, QUERY_NAME } from '../api';
-import { Id } from '../types';
+import { Id, SubjectUnion } from '../types';
 
-export const useGetSubject = <T>({id, ...options}: {id: Id}): UseQueryResult<T> => {
+interface UseGetSubjectProps<T> extends Partial<UseQueryOptions<SubjectUnion, Error, T>> {
+  id: Id;
+}
+
+export const useGetSubject = <T>({id, ...options}: UseGetSubjectProps<T>): UseQueryResult<T> => {
 
   return useQuery({
     queryKey: [QUERY_NAME.SUBJECT],

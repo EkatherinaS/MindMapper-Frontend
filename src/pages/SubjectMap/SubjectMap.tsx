@@ -1,11 +1,18 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Flex } from 'antd';
-import { useModal } from '../../hooks';
-import { JSX } from 'react';
+import { useGetSubject, useModal } from '../../hooks';
+import { JSX, useState } from 'react';
 import { UploadFile, SubjectGraph } from '../../ui';
+import { Id } from '../../types';
+import { mapDataToGraph } from '../../helpers';
 
 export const SubjectMap = (): JSX.Element => {
+  const [selectedDocument, setSelectedDocument] = useState<Id>(1);
+
   const { onOpen, onClose, isOpen } = useModal();
+  const { data } = useGetSubject({ id: selectedDocument, select: mapDataToGraph });
+
+  console.log({ data })
 
   return (
   <Flex vertical>
