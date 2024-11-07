@@ -8,14 +8,20 @@ export interface CreateSubjectUnion {
 
 export interface SubjectUnion {
   id: Id;
+  name: string;
+  text: string;
+  previousTopicId?: Id
 }
 
 export const subjectApi = {
-  getOne: ({ id }: { id: Id }): Promise<SubjectUnion> =>
-    http.get<SubjectUnion>(`${API_URL.SUBJECT}${id}/` )
+  getOne: ({ id }: { id: Id }): Promise<SubjectUnion> => {
+    console.log({id});
+
+    return http.get<SubjectUnion>(`${API_URL.SUBJECT}/` )
       .then((res) => {
         return res.data;
-      }),
+      })
+  },
 
   upload(data: CreateSubjectUnion): Promise<Id> {
     return http.post<Id>(API_URL.SUBJECT, data)
