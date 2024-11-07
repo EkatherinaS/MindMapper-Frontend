@@ -17,9 +17,8 @@ export const subjectApi = {
   },
 
   getOne: ({ id }: { id: Id }): Promise<SubjectUnion> => {
-    console.log({id});
 
-    return http.get<SubjectUnion>(`${API_URL.SUBJECT_DOCUMENT}` )
+    return http.get<SubjectUnion>(`${API_URL.SUBJECT_DOCUMENT}?Id=${id}`,  )
       .then((res) => {
         return res.data;
       })

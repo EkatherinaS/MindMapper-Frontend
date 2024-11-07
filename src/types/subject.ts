@@ -9,7 +9,7 @@ export interface Topic {
 
 export interface SubjectUnion {
   documentId: Id;
-  documentName: string;
+  name: string;
   isReady: boolean;
   topics: Topic[];
 }

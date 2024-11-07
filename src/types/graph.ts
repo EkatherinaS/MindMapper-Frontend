@@ -14,7 +14,7 @@ export interface Vertex {
 
 export interface GraphData {
   documentId: Id;
-  documentName: string;
+  name: string;
   isReady: boolean;
   nodes: Vertex[];
   links: Edge[];

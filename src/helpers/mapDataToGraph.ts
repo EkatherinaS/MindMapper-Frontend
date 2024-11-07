@@ -22,7 +22,7 @@ export const mapDataToGraph = (data: SubjectUnion): GraphData => {
   
   return ({
     documentId: data.documentId,
-    documentName: data.documentName,
+    name: data.name,
     isReady: data.isReady,
     nodes,
     links,
