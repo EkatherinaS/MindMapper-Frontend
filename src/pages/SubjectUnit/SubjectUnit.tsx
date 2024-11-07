@@ -3,25 +3,15 @@ import { Collapse} from 'antd';
 import { useGetSubject } from '../../hooks';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { useParams } from 'react-router-dom';
+import { SubjectUnion } from '@/types';
 
 const { Panel } = Collapse;
 
-
-interface Topic {
-  id: number;
-  name: string;
-  text: string;
-  previousTopicId?: number;
-}
-
-interface SubjectData {
-  documentId: number;
-  topics: Topic[];
-  isReady: boolean;
-}
-
 export const SubjectUnit = (): JSX.Element => {
-  const { data, isPending } = useGetSubject<SubjectData>({ id: 1 });
+  const { id = ''} = useParams();
+  const { data, isPending } = useGetSubject<SubjectUnion>({ id });
+  const topics = data?.topics || [];
 
   if (!data || isPending) {
     return <div>Загрузка...</div>;
@@ -31,7 +21,7 @@ export const SubjectUnit = (): JSX.Element => {
     <div>
       <h1>Карточки</h1>
       <Collapse>
-        {data.topics.map((topic) => (
+        {topics.map((topic) => (
           <Panel header={topic.name} key={topic.id}>
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {topic.text}
