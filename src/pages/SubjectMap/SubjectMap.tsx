@@ -2,7 +2,7 @@ import { ArrowRightOutlined, ArrowUpOutlined, InfoCircleOutlined, PlusOutlined }
 import { Button, Drawer, Flex } from 'antd';
 import { useGetSubject, useGetSubjectList, useModal } from '../../hooks';
 import { JSX, useState } from 'react';
-import { UploadFile, SubjectGraph } from '../../ui';
+import { UploadFile, SubjectGraph, SideDrawer } from '../../ui';
 import { Id } from '../../types';
 import { mapDataToGraph } from '../../helpers';
 
@@ -15,6 +15,8 @@ export const SubjectMap = (): JSX.Element => {
     isPending: isPendingGraph,
     error: errorGraph, isError: isErrorGraph} = useGetSubject({ id: selectedDocument, select: mapDataToGraph });
   const {  data: documentsData } = useGetSubjectList();
+
+console.log(documentsData);
 
   const nodes = graphData?.nodes || [];
   const links = graphData?.links || [];
@@ -81,15 +83,9 @@ export const SubjectMap = (): JSX.Element => {
       />
       </div>
 
-      <Drawer
-        title="Заголовок шторки"
-        placement="left"
-        closable={true}
-        onClose={onCloseDrawer}
+      <SideDrawer
         visible={drawerVisible}
-      >
-        <p>Содержимое шторки</p>
-        <p>Дополнительная информация</p>
-      </Drawer>
+        onClose={onCloseDrawer}
+      />
   </Flex>)
 };

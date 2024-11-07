@@ -1,4 +1,4 @@
-import { Edge, Vertex, GraphData } from '@/types';
+import { GraphData } from '@/types';
 import { ForceGraph2D } from 'react-force-graph';
 
 
