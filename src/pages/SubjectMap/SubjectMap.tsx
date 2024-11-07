@@ -1,25 +1,29 @@
-import { ArrowRightOutlined, ArrowUpOutlined, InfoCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Drawer, Flex } from 'antd';
+import { ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Drawer, Flex, message } from 'antd';
 import { useGetSubject, useGetSubjectList, useModal } from '../../hooks';
 import { JSX, useState } from 'react';
 import { UploadFile, SubjectGraph } from '../../ui';
 import { Id } from '../../types';
 import { mapDataToGraph } from '../../helpers';
+import { useNavigate } from 'react-router-dom';
 
 export const SubjectMap = (): JSX.Element => {
+  const navigate = useNavigate();
   const [selectedDocument, setSelectedDocument] = useState<Id>(1);
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   const { onOpen, onClose, isOpen } = useModal();
-  const { data: graphData,
+  const {
+    data: graphData,
     isPending: isPendingGraph,
-    error: errorGraph, isError: isErrorGraph} = useGetSubject({ id: selectedDocument, select: mapDataToGraph });
+    isError: isErrorGraph
+  } = useGetSubject({ id: selectedDocument, select: mapDataToGraph });
   const {  data: documentsData } = useGetSubjectList();
 
   const nodes = graphData?.nodes || [];
   const links = graphData?.links || [];
   const documentId = graphData?.documentId || '';
-  const documentName = graphData?.documentName || '';
+  const documentName = graphData?.documentName || 'test';
   const isReady = graphData?.isReady || false;
 
   const showDrawer = () => {
@@ -30,20 +34,30 @@ export const SubjectMap = (): JSX.Element => {
     setDrawerVisible(false);
   };
 
+  const goToSubjectUnion= (id: Id) => {
+    navigate(`/subject-union/${id}`);
+  }
+
+  if (isErrorGraph) {
+    message.error("Произошла ошибка при загрузке данных");
+  }
+
   return (
-  <Flex vertical>
+  <Flex vertical align='center'>
     {
-      isErrorGraph ? <div>404</div>:(
-        isPendingGraph ? <div>test</div> : (
-          <SubjectGraph
-            nodes={nodes}
-            links={links}
-            documentId={documentId}
-            documentName={documentName}
-            isReady={isReady}
-          />
-        )
-      )
+        isPendingGraph ? <div>Загрузка...</div> : (
+          !isErrorGraph && (
+            <>
+              <h1 style={{ textAlign: 'center' }}>{documentName}</h1>
+              <SubjectGraph
+                nodes={nodes}
+                links={links}
+                documentId={documentId}
+                isReady={isReady}
+                onNodeClick={goToSubjectUnion}
+              />
+            </>  
+        ))
     }
 
     <UploadFile

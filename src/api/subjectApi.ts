@@ -11,7 +11,6 @@ export const subjectApi = {
   getList: (): Promise<SubjectDocument[]> => {
     return http.get<SubjectDocument[]>(`${API_URL.SUBJECT_DOCUMENT_LIST}` )
       .then((res) => {
-        debugger
         /** TODO заменить на реальные данные */
         return [{id: 1, name: 'presentation 1'}, {id: 2, name: 'presentation 2'}, {id: 3, name: 'presentation 3'}];
       })
@@ -27,7 +26,7 @@ export const subjectApi = {
   },
 
   upload(data: CreateSubjectUnion): Promise<Id> {
-    return http.post<Id>(API_URL.SUBJECT_DOCUMENT, data)
+    return http.post<Id>(API_URL.DOCUMENT_UPLOAD, data)
       .then((res) => res.data);
   },
 };
