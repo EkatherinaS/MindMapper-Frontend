@@ -51,8 +51,9 @@ export const SubjectMap = (): JSX.Element => {
 
     <UploadFile
       onClose={onClose}
+      onUploadSuccess={setSelectedDocument}
       isOpen={isOpen}
-      />
+    />
 
     <div style={{ position: 'absolute', bottom: '50px', right: '50px' }}>
       <Button
