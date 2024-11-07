@@ -2,7 +2,7 @@ import { ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Drawer, Flex, message } from 'antd';
 import { useGetSubject, useGetSubjectList, useModal } from '../../hooks';
 import { JSX, useState } from 'react';
-import { UploadFile, SubjectGraph } from '../../ui';
+import { UploadFile, SubjectGraph, SideDrawer } from '../../ui';
 import { Id } from '../../types';
 import { mapDataToGraph } from '../../helpers';
 import { useNavigate } from 'react-router-dom';
@@ -18,13 +18,17 @@ export const SubjectMap = (): JSX.Element => {
     isPending: isPendingGraph,
     isError: isErrorGraph
   } = useGetSubject({ id: selectedDocument, select: mapDataToGraph });
+  const {
+    data: documentsData,
+    // isPending: isPendingPresentations
+  } = useGetSubjectList();
 
-  const {  data: documentsData } = useGetSubjectList();
+  const presentationList = documentsData ?? []  
 
   const nodes = graphData?.nodes || [];
   const links = graphData?.links || [];
   const documentId = graphData?.documentId || '';
-  const documentName = graphData?.name || 'test';
+  const documentName = graphData?.name ?? '';
   const isReady = graphData?.isReady || false;
 
   const showDrawer = () => {
@@ -95,16 +99,12 @@ export const SubjectMap = (): JSX.Element => {
         }}
       />
       </div>
-
-      <Drawer
-        title="Заголовок шторки"
-        placement="left"
-        closable={true}
-        onClose={onCloseDrawer}
+      
+      <SideDrawer
         visible={drawerVisible}
-      >
-        <p>Содержимое шторки</p>
-        <p>Дополнительная информация</p>
-      </Drawer>
+        onClose={onCloseDrawer}
+        presentations={presentationList}
+        onItemClick={setSelectedDocument}
+      />
   </Flex>)
 };
